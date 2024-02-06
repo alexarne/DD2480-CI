@@ -11,4 +11,5 @@ public class Config {
     public static final int PORT = 8021;
     public static final String DIRECTORY_REPOSITORIES = "./repos/";
     public static final String DIRECTORY_HISTORY = "./history/";
+    public static final String DIRECTORY_LOGS = "./logs/";
 }

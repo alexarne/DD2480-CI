@@ -41,6 +41,9 @@ public class ContinuousIntegrationServer extends AbstractHandler
     public static void main(String[] args) throws Exception
     {
         System.out.println(Config.GITHUB_TOKEN);
+        RepositoryCloner repositoryCloner = new RepositoryCloner();
+        repositoryCloner.cloneRepository("https://github.com/alexarne/DECIDE");
+        repositoryCloner.deleteRepository();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
