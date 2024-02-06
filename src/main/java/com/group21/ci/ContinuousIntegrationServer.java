@@ -28,7 +28,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         System.out.println(IOUtils.toString(request.getReader()));
         switch (request.getMethod()) {
             case "POST":
-
+                
                 break;
             case "GET":
                 
