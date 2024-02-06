@@ -10,7 +10,8 @@ Clone this repository and have Maven installed. This repository is also configur
 
   1. Create a copy of `config.env-default` and rename it to `config.env`
   2. Fill in the fields of `config.env`
-  3. Run `mvn exec:java`
+  3. Do `cd ci`
+  4. Run `mvn exec:java`
 
 - To make the local server externally visible using ngrok, do the following in a separate terminal:
 

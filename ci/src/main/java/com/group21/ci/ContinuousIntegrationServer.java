@@ -43,9 +43,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
     public static void main(String[] args) throws Exception
     {
         Dotenv dotenv = Dotenv.configure().directory("..").filename("config.env").load();
-        System.out.println(dotenv.get("GITHUB_TOKEN"));
-        System.out.println(Config.PORT);
-        Server server = new Server(8080);
+        System.out.println(dotenv.get("GITHUB_TOKEN", "default-value"));
+        Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
         server.join();
