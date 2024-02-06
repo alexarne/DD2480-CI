@@ -42,8 +42,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
-        Dotenv dotenv = Dotenv.configure().directory("..").filename("config.env").load();
-        System.out.println(dotenv.get("GITHUB_TOKEN", "default-value"));
+        System.out.println(Config.GITHUB_TOKEN);
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
