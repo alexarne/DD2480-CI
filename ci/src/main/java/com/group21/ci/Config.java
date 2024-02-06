@@ -10,6 +10,8 @@ public class Config {
         .get("GITHUB_TOKEN", "");
     public static final int PORT = 8021;
     public static final String DIRECTORY_REPOSITORIES = "./repos/";
-    public static final String DIRECTORY_HISTORY = "./history/";
-    public static final String DIRECTORY_LOGS = "./logs/";
+    public static final String DIRECTORY_BUILD_HISTORY = "./build_history/";
+    public static final String BUILD_LOG_FILENAME = "build_log.txt";
+    public static final String BUILD_IDENTIFIER_FILENAME = "commit_identifier.txt";
+    public static final String BUILD_BRANCH_FILENAME = "branch.txt";
 }

@@ -25,7 +25,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
         throws IOException, ServletException
     {
         System.out.println(target);
-        System.out.println(IOUtils.toString(request.getReader()));
         switch (request.getMethod()) {
             case "POST":
                 
@@ -52,6 +51,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
+        String owner = "alexarne";
+        String repositoryName = "DD2480-CI";
+        String SHA = "qowdpinqwdoin";
+        String branch = "master";
+        RepositoryTester repositoryTester = new RepositoryTester(owner, repositoryName, SHA, branch);
+        repositoryTester.runTests();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();

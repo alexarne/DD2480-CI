@@ -2,6 +2,10 @@
 
 Continuous Integration implementation, part of DD2480 Software Engineering Fundamentals (KTH, 2024)
 
+## Configuration
+
+Any repository which implements this CI has to provide a `test.sh` script in the root directory, which is then executed in order to test the repository.
+
 ## How to Run
 
 Clone this repository and have Maven installed. This repository is also configured with certain tests for testing the CI itself, which can be executed by `mvn test`.

@@ -26,7 +26,7 @@ replay_pid*
 ngrok
 *.env
 .vscode/
-repos/
-history/
-logs/
-target/*
+ci/repos/
+ci/history/
+ci/build_history/
+ci/target/*
