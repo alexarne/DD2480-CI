@@ -10,8 +10,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
