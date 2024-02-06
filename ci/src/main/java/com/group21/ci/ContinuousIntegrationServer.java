@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
  
 import org.eclipse.jetty.server.Server;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -23,11 +24,22 @@ public class ContinuousIntegrationServer extends AbstractHandler
                        HttpServletResponse response) 
         throws IOException, ServletException
     {
+        System.out.println(target);
+        System.out.println(IOUtils.toString(request.getReader()));
+        switch (request.getMethod()) {
+            case "POST":
+
+                break;
+            case "GET":
+                
+                break;
+        
+            default:
+                break;
+        }
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-
-        System.out.println(target);
 
         // here you do all the continuous integration tasks
         // for example
@@ -40,10 +52,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
-        System.out.println(Config.GITHUB_TOKEN);
-        RepositoryCloner repositoryCloner = new RepositoryCloner();
-        repositoryCloner.cloneRepository("https://github.com/alexarne/DECIDE");
-        repositoryCloner.deleteRepository();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
