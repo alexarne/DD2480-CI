@@ -39,6 +39,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                     buffer.append(System.lineSeparator());
                 }
                 String data = buffer.toString();
+                JSONObject jsonObj = new JSONObject(data);
                 
                 break;
             case "GET":
