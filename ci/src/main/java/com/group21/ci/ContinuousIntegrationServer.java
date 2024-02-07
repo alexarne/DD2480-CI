@@ -43,6 +43,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 String ref = jsonObj.getString("ref");
                 ref = ref.substring(ref.lastIndexOf("/")+1);
                 String commitId = jsonObj.getJSONObject("head_commit").getString("id");
+                String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
 
                 
                 break;
