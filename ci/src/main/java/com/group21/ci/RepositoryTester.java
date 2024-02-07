@@ -45,7 +45,6 @@ public class RepositoryTester {
             process.redirectError(Redirect.appendTo(logFile));
             process.start().waitFor();
             process.directory(new File(dir));
-            process.command("ls");
             process.start().waitFor();
             process.command("bash",  "test.sh");
             exitCode = process.start().waitFor();
