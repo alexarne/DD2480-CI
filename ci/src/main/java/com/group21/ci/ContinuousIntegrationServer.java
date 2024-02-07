@@ -42,6 +42,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 JSONObject jsonObj = new JSONObject(data);
                 String ref = jsonObj.getString("ref");
                 ref = ref.substring(ref.lastIndexOf("/")+1);
+                String commitId = jsonObj.getJSONObject("head_commit").getString("id");
+
                 
                 break;
             case "GET":
