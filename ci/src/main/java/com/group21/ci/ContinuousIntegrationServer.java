@@ -44,6 +44,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 ref = ref.substring(ref.lastIndexOf("/")+1);
                 String commitId = jsonObj.getJSONObject("head_commit").getString("id");
                 String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
+                String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
+
                 String print = "branch: " + ref + " commit id: " + commitId + " clone url: " + cloneUrl;
 
                 response.getWriter().println(print);
