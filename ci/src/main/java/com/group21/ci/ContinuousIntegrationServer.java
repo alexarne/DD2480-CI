@@ -40,6 +40,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 }
                 String data = buffer.toString();
                 JSONObject jsonObj = new JSONObject(data);
+                String ref = jsonObj.getString("ref");
+                ref = ref.substring(ref.lastIndexOf("/")+1);
                 
                 break;
             case "GET":
