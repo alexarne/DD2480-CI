@@ -3,7 +3,8 @@ package com.group21.ci;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
- 
+
+import java.io.BufferedReader;
 import java.io.IOException;
  
 import org.eclipse.jetty.server.Server;
@@ -27,6 +28,14 @@ public class ContinuousIntegrationServer extends AbstractHandler
         System.out.println(target);
         switch (request.getMethod()) {
             case "POST":
+                StringBuilder buffer = new StringBuilder();
+                BufferedReader reader = request.getReader();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                    buffer.append(System.lineSeparator());
+                }
+                String data = buffer.toString();
                 
                 break;
             case "GET":
