@@ -47,7 +47,7 @@ public class RepositoryTester {
             process.directory(new File(dir));
             process.command("ls");
             process.start().waitFor();
-            process.command("./test.sh");
+            process.command("bash",  "test.sh");
             exitCode = process.start().waitFor();
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
@@ -70,14 +70,14 @@ public class RepositoryTester {
         }
         
         // Delete repo regardless
-        try {
-            ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
-            process.directory(new File(Config.DIRECTORY_REPOSITORIES));
-            process.start().waitFor();
-        } catch (IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // try {
+        //     ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
+        //     process.directory(new File(Config.DIRECTORY_REPOSITORIES));
+        //     process.start().waitFor();
+        // } catch (IOException | InterruptedException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
 
         appendToFile(SHA, SHAFile);
         appendToFile(branch, branchFile);
