@@ -29,6 +29,10 @@ public class RepositoryTester {
         this.branch = branch;
     }
     
+    /**
+     * Clone and test the repository and save data from the processes ran in log files.
+     * @return the exit code from the processes ran
+     */
     public int runTests() {
         String id = generateUniqueIdentifier();
         String dir = Config.DIRECTORY_REPOSITORIES + id;
@@ -37,7 +41,7 @@ public class RepositoryTester {
         File branchFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_BRANCH_FILENAME);
         logFile.getParentFile().mkdirs();
         
-        // Clone and run test.sh
+        // Clone, checkout the branch that was pushed to and run test.sh
         int exitCode = -99;
         try {
             logFile.createNewFile();
@@ -85,6 +89,11 @@ public class RepositoryTester {
         return exitCode;
     }
 
+    /**
+     * Append data to end of a file.
+     * @param data the data to write to the file
+     * @param file the file that should be written to
+     */
     private void appendToFile(String data, File file) {
         try {
             FileWriter fw = new FileWriter(file, true);
@@ -99,10 +108,18 @@ public class RepositoryTester {
         }
     }
 
+    /**
+     * Generate a unique identifier that is the current time in milliseconds.
+     * @return a string that is a unique identifier.
+     */
     private String generateUniqueIdentifier() {
         return "" + System.currentTimeMillis();
     }
 
+    /**
+     * Clean a file from ANSI color codes. 
+     * @param file the file that should be processed
+     */
     private void cleanFile(File file){
         StringBuilder buffer = new StringBuilder();
         String line;
