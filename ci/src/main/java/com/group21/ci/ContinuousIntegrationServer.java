@@ -31,15 +31,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         System.out.println(target);
         switch (request.getMethod()) {
             case "POST":
-                StringBuilder buffer = new StringBuilder();
-                BufferedReader reader = request.getReader();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                    buffer.append(System.lineSeparator());
-                }
-                String data = buffer.toString();
-                JSONObject jsonObj = new JSONObject(data);
+                JSONObject jsonObj = readPostData(request);
                 String ref = jsonObj.getString("ref");
                 ref = ref.substring(ref.lastIndexOf("/")+1);
                 String commitId = jsonObj.getJSONObject("head_commit").getString("id");
@@ -68,6 +60,25 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 2nd compile the code
 
         response.getWriter().println("CI job done");
+    }
+
+    public JSONObject readPostData(HttpServletRequest request){
+        StringBuilder buffer = new StringBuilder();
+        BufferedReader reader;
+        try {
+            reader = request.getReader();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+                buffer.append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String data = buffer.toString();
+        JSONObject jsonObj = new JSONObject(data);
+        return jsonObj;
     }
  
     // used to start the CI server in command line
