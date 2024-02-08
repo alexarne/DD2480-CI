@@ -62,6 +62,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         response.getWriter().println("CI job done");
     }
 
+    /**
+     * Retreive JSON object from POST request
+     * @param request the incoming request with data
+     * @return the JSON object containing data from request.
+     */
     public JSONObject readPostData(HttpServletRequest request){
         StringBuilder buffer = new StringBuilder();
         BufferedReader reader;
