@@ -32,23 +32,42 @@ public class RepositoryTester {
         File SHAFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_IDENTIFIER_FILENAME);
         File branchFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_BRANCH_FILENAME);
         logFile.getParentFile().mkdirs();
-        
+
+        //Os detection
+        String osName = System.getProperty("os.name").toLowerCase();
+        boolean isWindows = osName.contains("windows");
+
         // Clone and run test.sh
         int exitCode = -99;
         try {
             logFile.createNewFile();
             SHAFile.createNewFile();
             branchFile.createNewFile();
-            ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
-            process.redirectErrorStream(true);
-            process.redirectOutput(Redirect.appendTo(logFile));
-            process.redirectError(Redirect.appendTo(logFile));
-            process.start().waitFor();
-            process.directory(new File(dir));
-            process.command("ls");
-            process.start().waitFor();
-            process.command("./test.sh");
+            if (isWindows){
+                ProcessBuilder process = new ProcessBuilder("cmd", "/c", "git", "clone", URL, dir);
+                process.redirectErrorStream(true);
+                process.redirectOutput(Redirect.appendTo(logFile));
+                process.redirectError(Redirect.appendTo(logFile));
+                process.start().waitFor();
+                process.directory(new File(dir));
+                process.command("ls");
+                process.start().waitFor();
+                process.command("cmd", "/c", "test.bat");
+
             exitCode = process.start().waitFor();
+            }
+            else{
+                ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
+                process.redirectErrorStream(true);
+                process.redirectOutput(Redirect.appendTo(logFile));
+                process.redirectError(Redirect.appendTo(logFile));
+                process.start().waitFor();
+                process.directory(new File(dir));
+                process.command("ls");
+                process.start().waitFor();
+                process.command("./test.sh");
+            }
+            
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             try {
@@ -71,9 +90,17 @@ public class RepositoryTester {
         
         // Delete repo regardless
         try {
-            ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
-            process.directory(new File(Config.DIRECTORY_REPOSITORIES));
-            process.start().waitFor();
+            if (isWindows){
+                ProcessBuilder process = new ProcessBuilder("cmd", "/c", "rmdir", "/s", "/q", id);
+                process.directory(new File(Config.DIRECTORY_REPOSITORIES));
+                process.start().waitFor();
+            }
+            else{
+                ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
+                process.directory(new File(Config.DIRECTORY_REPOSITORIES));
+                process.start().waitFor();
+            }
+            
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
