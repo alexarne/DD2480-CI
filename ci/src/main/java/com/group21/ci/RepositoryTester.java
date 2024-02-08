@@ -1,12 +1,18 @@
 package com.group21.ci;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.OutputStream;
 import java.lang.ProcessBuilder.Redirect;
+import java.util.regex.Pattern;
 
 public class RepositoryTester {
     private String URL;
@@ -75,7 +81,7 @@ public class RepositoryTester {
         appendToFile(branch, branchFile);
         appendToFile(id + ": Exit code " + exitCode, logFile);
         System.out.println(id + ": Exit code " + exitCode);
-
+        cleanFile(logFile);
         return exitCode;
     }
 
@@ -96,4 +102,30 @@ public class RepositoryTester {
     private String generateUniqueIdentifier() {
         return "" + System.currentTimeMillis();
     }
+
+    private void cleanFile(File file){
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+                buffer.append(System.lineSeparator());
+            }
+            String data = buffer.toString();
+            reader.close();
+            String cleanData = data.replaceAll("\\e\\[[\\d;]*[^\\d;]", "");
+            FileWriter fw = new FileWriter(file, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(cleanData);
+            bw.newLine();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
+
+
