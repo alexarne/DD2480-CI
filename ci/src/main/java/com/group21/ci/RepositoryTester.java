@@ -43,6 +43,7 @@ public class RepositoryTester {
             process.redirectError(Redirect.appendTo(logFile));
             process.start().waitFor();
             process.directory(new File(dir));
+            process.command("git", "checkout", branch);
             process.start().waitFor();
             process.command("bash",  "test.sh");
             exitCode = process.start().waitFor();
