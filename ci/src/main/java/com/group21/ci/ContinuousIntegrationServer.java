@@ -31,15 +31,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
         System.out.println(target);
         switch (request.getMethod()) {
             case "POST":
-                JSONObject jsonObj = readPostData(request);
-                String ref = jsonObj.getString("ref");
-                ref = ref.substring(ref.lastIndexOf("/")+1);
-                String commitId = jsonObj.getJSONObject("head_commit").getString("id");
-                String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
-                String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
-
-                String print = "branch: " + ref + " commit id: " + commitId + " clone url: " + cloneUrl;
-
+                RepositoryInfo repo = readPostData(request);
+                String print = "branch: " + repo.ref + " commit id: " + repo.commitId + " clone url: " + repo.cloneUrl;
                 response.getWriter().println(print);
                 
                 break;
@@ -67,7 +60,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * @param request the incoming request with data
      * @return the JSON object containing data from request.
      */
-    public JSONObject readPostData(HttpServletRequest request){
+    public RepositoryInfo readPostData(HttpServletRequest request){
         StringBuilder buffer = new StringBuilder();
         BufferedReader reader;
         try {
@@ -83,7 +76,13 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
         String data = buffer.toString();
         JSONObject jsonObj = new JSONObject(data);
-        return jsonObj;
+        String ref = jsonObj.getString("ref");
+        ref = ref.substring(ref.lastIndexOf("/")+1);
+        String commitId = jsonObj.getJSONObject("head_commit").getString("id");
+        String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
+        String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
+        RepositoryInfo repo = new RepositoryInfo(ref, commitId, cloneUrl, owner);
+        return repo;
     }
  
     // used to start the CI server in command line
