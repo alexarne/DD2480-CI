@@ -23,7 +23,7 @@ public class RepositoryTester {
         this.branch = branch;
     }
     
-    public void runTests() {
+    public int runTests() {
         StatusSender statusSender = new StatusSender(owner, repositoryName, SHA);
         statusSender.sendPendingStatus();
         String id = generateUniqueIdentifier();
@@ -69,19 +69,21 @@ public class RepositoryTester {
         }
         
         // Delete repo regardless
-        // try {
-        //     ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
-        //     process.directory(new File(Config.DIRECTORY_REPOSITORIES));
-        //     process.start().waitFor();
-        // } catch (IOException | InterruptedException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
+        try {
+            ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
+            process.directory(new File(Config.DIRECTORY_REPOSITORIES));
+            process.start().waitFor();
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         appendToFile(SHA, SHAFile);
         appendToFile(branch, branchFile);
         appendToFile(id + ": Exit code " + exitCode, logFile);
         System.out.println(id + ": Exit code " + exitCode);
+
+        return exitCode;
     }
 
     private void appendToFile(String data, File file) {
