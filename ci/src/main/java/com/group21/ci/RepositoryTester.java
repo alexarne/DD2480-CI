@@ -158,7 +158,7 @@ public class RepositoryTester {
             }
             String data = buffer.toString();
             reader.close();
-            String cleanData = data.replaceAll("\\e\\[[\\d;]*[^\\d;]", "");
+            String cleanData = data.replaceAll("\\x1b\\[[0-9;]*m", "");
             FileWriter fw = new FileWriter(file, false);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(cleanData);
