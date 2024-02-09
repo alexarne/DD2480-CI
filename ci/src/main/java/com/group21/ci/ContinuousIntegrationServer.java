@@ -82,12 +82,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         String data = buffer.toString();
         JSONObject jsonObj = new JSONObject(data);
         String ref = jsonObj.getString("ref");
-        ref = ref.substring(ref.lastIndexOf("heads/")+1);
+        ref = ref.substring(ref.lastIndexOf("heads/")+6);
         String commitId = jsonObj.getJSONObject("head_commit").getString("id");
         String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
         String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
-        RepositoryInfo repo = new RepositoryInfo(ref, commitId, cloneUrl, owner);
-        return repo;
+        return new RepositoryInfo(ref, commitId, cloneUrl, owner);
     }
  
     // used to start the CI server in command line
