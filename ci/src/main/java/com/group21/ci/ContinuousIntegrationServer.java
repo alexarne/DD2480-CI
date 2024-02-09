@@ -34,22 +34,14 @@ public class ContinuousIntegrationServer extends AbstractHandler
             case "POST":
                 try{
                     BufferedReader reader = request.getReader();
-                    JSONObject jsonObj = readPostData(reader);
-                    String ref = jsonObj.getString("ref");
-                    ref = ref.substring(ref.lastIndexOf("heads/")+1);
-                    String commitId = jsonObj.getJSONObject("head_commit").getString("id");
-                    String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
-                    String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
-
-                    String print = "branch: " + ref + " commit id: " + commitId + " clone url: " + cloneUrl;
-
+                    RepositoryInfo repo = readPostData(reader);
+                    String print = "branch: " + repo.ref + " commit id: " + repo.commitId + " clone url: " + repo.cloneUrl;
                     response.getWriter().println(print);
+
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
-                
                 break;
             case "GET":
                 
@@ -75,7 +67,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * @param reader a BufferedReader with the data from the incoming request
      * @return the JSON object containing data from request.
      */
-    public JSONObject readPostData(BufferedReader reader){
+    public RepositoryInfo readPostData(BufferedReader reader){
         StringBuilder buffer = new StringBuilder();
         try {
             String line;
@@ -89,7 +81,13 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
         String data = buffer.toString();
         JSONObject jsonObj = new JSONObject(data);
-        return jsonObj;
+        String ref = jsonObj.getString("ref");
+        ref = ref.substring(ref.lastIndexOf("heads/")+1);
+        String commitId = jsonObj.getJSONObject("head_commit").getString("id");
+        String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
+        String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
+        RepositoryInfo repo = new RepositoryInfo(ref, commitId, cloneUrl, owner);
+        return repo;
     }
  
     // used to start the CI server in command line
