@@ -5,12 +5,14 @@ public class RepositoryInfo {
     String commitId;
     String cloneUrl;
     String owner;
+    String name;
 
-    public RepositoryInfo(String ref, String commitId, String cloneUrl, String owner){
+    public RepositoryInfo(String ref, String commitId, String cloneUrl, String owner, String name){
         this.ref = ref;
         this.commitId = commitId;
         this.cloneUrl = cloneUrl;
         this.owner = owner;
+        this.name = name;
     }
     
 }
