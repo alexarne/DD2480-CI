@@ -80,7 +80,7 @@ public class ContinuousIntegrationServerTest
         Reader inputString = new StringReader(gitHubPayload);
         BufferedReader reader = new BufferedReader(inputString);
         RepositoryInfo repo = server.readPostData(reader);
-        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1");
+        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1", "DD2480-CI-TEST");
         assertEquals(trueRepo.ref, repo.ref);
     }
 
@@ -92,7 +92,7 @@ public class ContinuousIntegrationServerTest
         Reader inputString = new StringReader(gitHubPayload);
         BufferedReader reader = new BufferedReader(inputString);
         RepositoryInfo repo = server.readPostData(reader);
-        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1");
+        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1", "DD2480-CI-TEST");
         assertEquals(trueRepo.commitId, repo.commitId);
     }
 
@@ -104,7 +104,7 @@ public class ContinuousIntegrationServerTest
         Reader inputString = new StringReader(gitHubPayload);
         BufferedReader reader = new BufferedReader(inputString);
         RepositoryInfo repo = server.readPostData(reader);
-        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1");
+        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1", "DD2480-CI-TEST");
         assertEquals(trueRepo.cloneUrl, repo.cloneUrl);
     }
 }
