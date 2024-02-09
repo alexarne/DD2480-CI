@@ -72,7 +72,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
     /**
      * Retreive JSON object from POST request
-     * @param request the incoming request with data
+     * @param reader a BufferedReader with the data from the incoming request
      * @return the JSON object containing data from request.
      */
     public JSONObject readPostData(BufferedReader reader){
