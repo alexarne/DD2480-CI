@@ -11,6 +11,11 @@ public class StatusSender {
     private String statusUrl;
     private HttpClient statusHttpClient;
     CompletableFuture<HttpResponse<String>> response;
+
+    private static final String STATE_ERROR = "error";
+    private static final String STATE_FAILURE = "failure";
+    private static final String STATE_PENDING = "pending";
+    private static final String STATE_SUCCESS = "success";
     
     public StatusSender(String owner, String repositoryName, String SHA) {
         this.owner = owner;
@@ -21,30 +26,40 @@ public class StatusSender {
     }
 
     public void sendErrorStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("error", 
-                                                "An error occured during the build"),
-                                                HttpResponse.BodyHandlers.ofString());
+        String sanitizedDescription = TextSanitizer.sanitize("An error occurred during the build");
+        sendStatus(STATE_ERROR, sanitizedDescription);
     }
 
     public void sendFailureStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("failure", 
-                                                "Build has failed"),
-                                                HttpResponse.BodyHandlers.ofString());
+        String sanitizedDescription = TextSanitizer.sanitize("Build has failed");
+        sendStatus(STATE_FAILURE, sanitizedDescription);
     }
 
     public void sendPendingStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("pending", 
-                                                "Build has begun on the CI server"),
-                                                HttpResponse.BodyHandlers.ofString());
+        String sanitizedDescription = TextSanitizer.sanitize("Build has begun on the CI server");
+        sendStatus(STATE_PENDING, sanitizedDescription);
     }
 
     public void sendSuccessStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("success", "Build success"), 
-                                                HttpResponse.BodyHandlers.ofString());
+        String sanitizedDescription = TextSanitizer.sanitize("Build success");
+        sendStatus(STATE_SUCCESS, sanitizedDescription);
     }
 
 
     // Helper methods
+
+    private void sendStatus(String state, String description) {
+        try {
+            response = statusHttpClient.sendAsync(requestBuilder(state, description),
+                    HttpResponse.BodyHandlers.ofString());
+            // Manejo de excepciones
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Manejo de errores al enviar el estado
+        }
+    }
+
+
     private String getStatusUrl() {
         return "https://api.github.com/repos/" + owner + "/" + repositoryName + "/statuses/" + SHA;
     }
