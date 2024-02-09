@@ -37,6 +37,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                     RepositoryInfo repo = readPostData(reader);
                     String print = "branch: " + repo.ref + " commit id: " + repo.commitId + " clone url: " + repo.cloneUrl;
                     response.getWriter().println(print);
+                    RepositoryTester repositoryTester = new RepositoryTester(repo);
+                    repositoryTester.runTests();
 
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
@@ -93,11 +95,13 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
-        String owner = "alexarne";
-        String repositoryName = "DD2480-CI";
-        String SHA = "qowdpinqwdoin";
-        String branch = "master";
-        RepositoryTester repositoryTester = new RepositoryTester(owner, repositoryName, SHA, branch);
+        String testOwner = "alexarne";
+        String testRepositoryName = "DD2480-CI";
+        String testSHA = "qowdpinqwdoin";
+        String testBranch = "main";
+        String testCloneUrl = "https://github.com/alexarne/DD2480-CI.git";
+        RepositoryInfo testRepo = new RepositoryInfo(testBranch, testSHA, testCloneUrl, testOwner, testRepositoryName);
+        RepositoryTester repositoryTester = new RepositoryTester(testRepo);
         repositoryTester.runTests();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
