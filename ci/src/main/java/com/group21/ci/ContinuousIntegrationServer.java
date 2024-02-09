@@ -36,7 +36,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                     BufferedReader reader = request.getReader();
                     JSONObject jsonObj = readPostData(reader);
                     String ref = jsonObj.getString("ref");
-                    ref = ref.substring(ref.lastIndexOf("/")+1);
+                    ref = ref.substring(ref.lastIndexOf("heads/")+1);
                     String commitId = jsonObj.getJSONObject("head_commit").getString("id");
                     String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
                     String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
