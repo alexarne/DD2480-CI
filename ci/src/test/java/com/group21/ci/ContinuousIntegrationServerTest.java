@@ -72,6 +72,9 @@ public class ContinuousIntegrationServerTest
         assertTrue( true );
     }
 
+    /**
+     * Assert that the branch name extracted from the payload in readPostData is correct.
+     */
     @Test
     public void readPostDataReturnsCorrectRepoBranch(){
         Reader inputString = new StringReader(gitHubPayload);
@@ -81,13 +84,27 @@ public class ContinuousIntegrationServerTest
         assertEquals(trueRepo.ref, repo.ref);
     }
 
+    /**
+     * Assert that the commit id (SHA) extracted from the payload in readPostData is correct.
+     */
     @Test
     public void readPostDataReturnsCorrectCommitId(){
-        
         Reader inputString = new StringReader(gitHubPayload);
         BufferedReader reader = new BufferedReader(inputString);
         RepositoryInfo repo = server.readPostData(reader);
         RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1");
         assertEquals(trueRepo.commitId, repo.commitId);
+    }
+
+    /**
+     * Assert that the clone URL extracted from the payload in readPostData is correct.
+     */
+    @Test
+    public void readPostDataReturnsCorrectCloneUrl(){
+        Reader inputString = new StringReader(gitHubPayload);
+        BufferedReader reader = new BufferedReader(inputString);
+        RepositoryInfo repo = server.readPostData(reader);
+        RepositoryInfo trueRepo = new RepositoryInfo("main", "944955a73f18f5cbfae6d66da4688e3d1badee04", "https://github.com/haaker1/DD2480-CI-TEST.git", "haaker1");
+        assertEquals(trueRepo.cloneUrl, repo.cloneUrl);
     }
 }
