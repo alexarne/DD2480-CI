@@ -28,19 +28,27 @@ public class ContinuousIntegrationServer extends AbstractHandler
                        HttpServletResponse response) 
         throws IOException, ServletException
     {
+        
         System.out.println(target);
         switch (request.getMethod()) {
             case "POST":
-                JSONObject jsonObj = readPostData(request);
-                String ref = jsonObj.getString("ref");
-                ref = ref.substring(ref.lastIndexOf("/")+1);
-                String commitId = jsonObj.getJSONObject("head_commit").getString("id");
-                String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
-                String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
+                try{
+                    BufferedReader reader = request.getReader();
+                    JSONObject jsonObj = readPostData(reader);
+                    String ref = jsonObj.getString("ref");
+                    ref = ref.substring(ref.lastIndexOf("/")+1);
+                    String commitId = jsonObj.getJSONObject("head_commit").getString("id");
+                    String cloneUrl = jsonObj.getJSONObject("repository").getString("clone_url");
+                    String owner = jsonObj.getJSONObject("repository").getJSONObject("owner").getString("name");
 
-                String print = "branch: " + ref + " commit id: " + commitId + " clone url: " + cloneUrl;
+                    String print = "branch: " + ref + " commit id: " + commitId + " clone url: " + cloneUrl;
 
-                response.getWriter().println(print);
+                    response.getWriter().println(print);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
                 
                 break;
             case "GET":
@@ -67,11 +75,9 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * @param request the incoming request with data
      * @return the JSON object containing data from request.
      */
-    public JSONObject readPostData(HttpServletRequest request){
+    public JSONObject readPostData(BufferedReader reader){
         StringBuilder buffer = new StringBuilder();
-        BufferedReader reader;
         try {
-            reader = request.getReader();
             String line;
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
