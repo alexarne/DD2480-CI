@@ -17,7 +17,7 @@ public class RepositoryTester {
 
     public RepositoryTester(RepositoryInfo repo) {
         this.owner = repo.owner;
-        //this.repositoryName = repositoryName;
+        this.repositoryName = repo.name;
         this.URL = repo.cloneUrl;
         this.SHA = repo.commitId;
         this.branch = repo.ref;
