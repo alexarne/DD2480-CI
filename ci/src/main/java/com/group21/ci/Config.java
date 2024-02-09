@@ -8,7 +8,7 @@ public class Config {
         .filename("config.env")
         .load()
         .get("GITHUB_TOKEN", "");
-    public static final int PORT = 8020;
+    public static final int PORT = 8021;
     public static final String DIRECTORY_REPOSITORIES = "./repos/";
     public static final String DIRECTORY_BUILD_HISTORY = "./build_history/";
     public static final String BUILD_LOG_FILENAME = "build_log.txt";
