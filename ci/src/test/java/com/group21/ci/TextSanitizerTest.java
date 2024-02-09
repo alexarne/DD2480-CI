@@ -17,4 +17,17 @@ public class TextSanitizerTest {
         assertEquals(expected, TextSanitizer.sanitize(input));
     }
 
+    /*
+     * Negative test, if all character are invalid, it returns an empty string
+     */
+
+    @Test
+    public void testSanitize_NegativeCase() {
+        String input = "!@#$%^&*()";
+        String expected = "";
+        assertEquals(expected, TextSanitizer.sanitize(input));
+    }
+
+    
+
 }
