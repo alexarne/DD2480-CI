@@ -11,7 +11,7 @@ public class TextSanitizerTest {
      */
 
     @Test
-    public void testSanitize_PositiveCase() {
+    public void testSanitizePositiveCase() {
         String input = "This is a test";
         String expected = "This is a test";
         assertEquals(expected, TextSanitizer.sanitize(input));
@@ -22,12 +22,36 @@ public class TextSanitizerTest {
      */
 
     @Test
-    public void testSanitize_NegativeCase() {
+    public void testSanitizeNegativeCase() {
         String input = "!@#$%^&*()";
         String expected = "";
         assertEquals(expected, TextSanitizer.sanitize(input));
     }
 
-    
+    /*
+     * Edge-case test, if an empty string is sent, it is expected to receive
+     * an empty string too
+     */
+
+    @Test
+    public void testSanitizeEdgeCase() {
+        String input = "";
+        String expected = "";
+        assertEquals(expected, TextSanitizer.sanitize(input));
+    }
+
+    /*
+     * Normal-case test, if a string conteins some invalid characters, it is
+     * expected to receive a sanitized string
+     */
+
+     @Test
+     public void testSanitizeNormalaCase() {
+         String input = "hello @ world";
+         String expected = "hello world";
+         assertEquals(expected, TextSanitizer.sanitize(input));
+     }
+
+
 
 }
