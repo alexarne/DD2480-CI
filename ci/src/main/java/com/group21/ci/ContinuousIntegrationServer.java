@@ -1,21 +1,21 @@
 package com.group21.ci;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.eclipse.jetty.server.Server;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +48,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                         response.getWriter().println("Unknown POST request, assumed to be ping");
                         break;
                     }
-                    String print = "Received commit\nBranch: " + repo.ref + ", Commit ID: " + repo.commitId + ", Clone URL: " + repo.cloneUrl;
+                    String print = "Received commit\nBranch: " + repo.ref + "\nCommit ID: " + repo.commitId + "\nClone URL: " + repo.cloneUrl;
                     response.getWriter().println(print);
                     final ExecutorService executor = Executors.newSingleThreadExecutor();
                     executor.execute(new Runnable() {
