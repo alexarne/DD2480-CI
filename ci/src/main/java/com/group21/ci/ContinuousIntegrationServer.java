@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
@@ -46,13 +48,17 @@ public class ContinuousIntegrationServer extends AbstractHandler
                         response.getWriter().println("Unknown POST request, assumed to be ping");
                         break;
                     }
-                    String print = "branch: " + repo.ref + " commit id: " + repo.commitId + " clone url: " + repo.cloneUrl;
+                    String print = "Received commit\nBranch: " + repo.ref + ", Commit ID: " + repo.commitId + ", Clone URL: " + repo.cloneUrl;
                     response.getWriter().println(print);
-                    RepositoryTester repositoryTester = new RepositoryTester(repo);
-                    repositoryTester.runTests();
+                    final ExecutorService executor = Executors.newSingleThreadExecutor();
+                    executor.execute(new Runnable() {
+                        public void run() {
+                            RepositoryTester repositoryTester = new RepositoryTester(repo);
+                            repositoryTester.runTests();
+                        }
+                    });
 
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 break;
