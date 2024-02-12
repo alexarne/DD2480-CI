@@ -107,8 +107,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 Scanner branchReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_BRANCH_FILENAME));
                 Scanner SHAReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_IDENTIFIER_FILENAME));
                 Scanner logReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_LOG_FILENAME));
-                htmlRespone += "<h2>Branch: " + branchReader.nextLine() + "</h2>";
-                htmlRespone += "<h2>SHA: " + SHAReader.nextLine() + "</h2>";
+                htmlRespone += "<h2>Branch: " + (branchReader.hasNextLine() ? branchReader.nextLine() : "") + "</h2>";
+                htmlRespone += "<h2>SHA: " + (SHAReader.hasNextLine() ? SHAReader.nextLine() : "") + "</h2>";
                 htmlRespone += "<h2>Build log:</h2>";
                 while (logReader.hasNextLine()) {
                     htmlRespone += logReader.nextLine() + "<br>";
