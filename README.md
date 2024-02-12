@@ -92,7 +92,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 **Alex Gunnarsson**
 
-- [Initial code structure]()
+- 
 
 - Reviewed:
 
