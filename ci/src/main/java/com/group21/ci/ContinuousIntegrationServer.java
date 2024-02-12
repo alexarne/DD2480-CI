@@ -171,7 +171,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         RepositoryTester repositoryTester = new RepositoryTester(testRepo);
         // repositoryTester.runTests();
         StatusSender ss = new StatusSender(testRepo, "1707768154560");
-        ss.sendSuccessStatus();
+        // ss.sendSuccessStatus();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
