@@ -13,7 +13,7 @@ Clone this repository and have Maven installed. This repository is also configur
 - To start the CI server, do the following in one terminal:
 
   1. Create a copy of `config.env-default` and rename it to `config.env`
-  2. Fill in the fields of `config.env`
+  2. Add your [GitHub Token](https://github.com/settings/tokens) to `config.env` (When generating the token, make sure to select the "classic" variant and tick the `repo:status` box under "Select scopes")
   3. Do `cd ci`
   4. Run `mvn exec:java`
 
@@ -30,4 +30,6 @@ Clone this repository and have Maven installed. This repository is also configur
 
     1. `./ngrok http 8021`
 
-- With the CI server running, add the public link as a Webhook to your GitHub repository and set the "Content type" to be `application/json`.
+- To link the CI:
+
+  - Add the public link from ngrok as a Webhook to your GitHub repository and set the "Content type" to be `application/json`.
