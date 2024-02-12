@@ -83,8 +83,6 @@ public class RepositoryTester {
                 process.directory(new File(dir));
                 process.command("git", "checkout", branch);
                 process.start().waitFor();
-                process.command("git", "checkout", SHA);
-                process.start().waitFor();
                 process.command("bash",  "test.sh");
                 exitCode = process.start().waitFor();
             }
