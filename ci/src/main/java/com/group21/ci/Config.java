@@ -6,6 +6,7 @@ public class Config {
     public static final String GITHUB_TOKEN = Dotenv.configure()
         .directory("..")
         .filename("config.env")
+        .ignoreIfMissing()
         .load()
         .get("GITHUB_TOKEN", "");
     public static final int PORT = 8021;
