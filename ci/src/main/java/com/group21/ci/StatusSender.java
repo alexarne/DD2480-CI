@@ -91,7 +91,7 @@ public class StatusSender {
             .POST(HttpRequest.BodyPublishers.ofString("{\"state\":\"" + status + "\"" 
                 + "," + "\"description\":" + "\"" + description + "\""
                 + "," + "\"context\":\"project-continuous-integration-server\""
-                + "," + "\"target_url\":\"" + Config.HISTORY_URL + buildIdentifier + "\""
+                + "," + "\"target_url\":\"" + Config.HISTORY_URL + "/" + buildIdentifier + "\""
                 + "}"))
             .build();
             return request;
