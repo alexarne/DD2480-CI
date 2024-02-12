@@ -12,10 +12,10 @@ public class StatusSender {
     private HttpClient statusHttpClient;
     CompletableFuture<HttpResponse<String>> response;
     
-    public StatusSender(String owner, String repositoryName, String SHA) {
-        this.owner = owner;
-        this.repositoryName = repositoryName;
-        this.SHA = SHA;
+    public StatusSender(RepositoryInfo repo) {
+        this.owner = repo.owner;
+        this.repositoryName = repo.name;
+        this.SHA = repo.commitId;
         statusUrl = getStatusUrl();
         statusHttpClient = HttpClient.newHttpClient();
     }

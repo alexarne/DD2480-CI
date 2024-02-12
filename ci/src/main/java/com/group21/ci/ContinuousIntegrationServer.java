@@ -53,8 +53,15 @@ public class ContinuousIntegrationServer extends AbstractHandler
                     final ExecutorService executor = Executors.newSingleThreadExecutor();
                     executor.execute(new Runnable() {
                         public void run() {
+                            StatusSender statusSender = new StatusSender(repo);
+                            statusSender.sendPendingStatus();
                             RepositoryTester repositoryTester = new RepositoryTester(repo);
-                            repositoryTester.runTests();
+                            int exitCode = repositoryTester.runTests();
+                            if (exitCode == 0) {
+                                statusSender.sendSuccessStatus();
+                            } else {
+                                statusSender.sendFailureStatus();
+                            }
                         }
                     });
 
