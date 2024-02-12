@@ -60,6 +60,8 @@ public class RepositoryTester {
             logFile.createNewFile();
             SHAFile.createNewFile();
             branchFile.createNewFile();
+            appendToFile(SHA, SHAFile);
+            appendToFile(branch, branchFile);
             if (isWindows){
                 ProcessBuilder process = new ProcessBuilder("cmd", "/c", "git", "clone", URL, dir);
                 process.redirectErrorStream(true);
@@ -117,8 +119,6 @@ public class RepositoryTester {
             e.printStackTrace();
         }
 
-        appendToFile(SHA, SHAFile);
-        appendToFile(branch, branchFile);
         appendToFile(id + ": Exit code " + exitCode, logFile);
         System.out.println(id + ": Exit code " + exitCode);
         cleanFile(logFile);
