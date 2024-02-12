@@ -40,34 +40,30 @@ public class ContinuousIntegrationServer extends AbstractHandler
         baseRequest.setHandled(true);
         switch (request.getMethod()) {
             case "POST":
-                try{
-                    BufferedReader reader = request.getReader();
-                    RepositoryInfo repo = readPostData(reader);
-                    if (repo == null) {
-                        System.out.println("Unknown POST request");
-                        response.getWriter().println("Unknown POST request, assumed to be ping");
-                        break;
-                    }
-                    String print = "Received commit\nBranch: " + repo.ref + "\nCommit ID: " + repo.commitId + "\nClone URL: " + repo.cloneUrl;
-                    response.getWriter().println(print);
-                    final ExecutorService executor = Executors.newSingleThreadExecutor();
-                    executor.execute(new Runnable() {
-                        public void run() {
-                            StatusSender statusSender = new StatusSender(repo);
-                            statusSender.sendPendingStatus();
-                            RepositoryTester repositoryTester = new RepositoryTester(repo);
-                            int exitCode = repositoryTester.runTests();
-                            if (exitCode == 0) {
-                                statusSender.sendSuccessStatus();
-                            } else {
-                                statusSender.sendFailureStatus();
-                            }
-                        }
-                    });
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                BufferedReader reader = request.getReader();
+                RepositoryInfo repo = readPostData(reader);
+                if (repo == null) {
+                    System.out.println("Unknown POST request");
+                    response.getWriter().println("Unknown POST request, assumed to be ping");
+                    break;
                 }
+                String print = "Received commit\nBranch: " + repo.ref + "\nCommit ID: " + repo.commitId + "\nClone URL: " + repo.cloneUrl;
+                response.getWriter().println(print);
+                final ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.execute(new Runnable() {
+                    public void run() {
+                        StatusSender statusSender = new StatusSender(repo);
+                        statusSender.sendPendingStatus();
+                        RepositoryTester repositoryTester = new RepositoryTester(repo);
+                        int exitCode = repositoryTester.runTests();
+                        if (exitCode == 0) {
+                            statusSender.sendSuccessStatus();
+                        } else {
+                            statusSender.sendFailureStatus();
+                        }
+                    }
+                });
+
                 break;
             case "GET":
                 PrintWriter writer = response.getWriter();
@@ -175,7 +171,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         RepositoryTester repositoryTester = new RepositoryTester(testRepo);
         // repositoryTester.runTests();
         StatusSender ss = new StatusSender(testRepo);
-        ss.sendSuccessStatus();
+        // ss.sendSuccessStatus();
         Server server = new Server(Config.PORT);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
