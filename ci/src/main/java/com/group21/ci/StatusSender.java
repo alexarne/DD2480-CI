@@ -11,13 +11,15 @@ public class StatusSender {
     private String SHA;
     private String statusUrl;
     private HttpClient statusHttpClient;
+    private String buildIdentifier;
     
-    public StatusSender(RepositoryInfo repo) {
+    public StatusSender(RepositoryInfo repo, String id) {
         this.owner = repo.owner;
         this.repositoryName = repo.name;
         this.SHA = repo.commitId;
         statusUrl = getStatusUrl();
         statusHttpClient = HttpClient.newHttpClient();
+        this.buildIdentifier = id;
     }
 
     public void sendErrorStatus() {
@@ -89,6 +91,7 @@ public class StatusSender {
             .POST(HttpRequest.BodyPublishers.ofString("{\"state\":\"" + status + "\"" 
                 + "," + "\"description\":" + "\"" + description + "\""
                 + "," + "\"context\":\"project-continuous-integration-server\""
+                + "," + "\"target_url\":\"" + Config.HISTORY_URL + buildIdentifier + "\""
                 + "}"))
             .build();
             return request;

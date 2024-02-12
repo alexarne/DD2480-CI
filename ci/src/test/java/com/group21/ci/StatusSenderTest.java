@@ -14,7 +14,7 @@ public class StatusSenderTest {
     @Before
     public void setUp() {
         RepositoryInfo repo = new RepositoryInfo("mockRef", "mockSHA", "mockURL", "mockOwner", "mockRepo");
-        sender = new StatusSender(repo);
+        sender = new StatusSender(repo, "mockId");
     }
 
     /**
