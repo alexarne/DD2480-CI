@@ -20,6 +20,9 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * A class for a server handling continuous integration.
+ */
 public class ContinuousIntegrationServer extends AbstractHandler
 {
     /**
@@ -160,7 +163,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
     }
  
-    // used to start the CI server in command line
+    // used to start the CI server from command line
     public static void main(String[] args) throws Exception
     {
         Server server = new Server(Config.PORT);
