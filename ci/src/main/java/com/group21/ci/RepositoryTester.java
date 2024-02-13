@@ -56,25 +56,21 @@ public class RepositoryTester {
         // Clone, checkout the branch that was pushed to and run test.sh
         int exitCode = -99;
         try {
-            System.out.println("begin git clone");
             logFile.createNewFile();
             SHAFile.createNewFile();
             branchFile.createNewFile();
             appendToFile(SHA, SHAFile);
             appendToFile(branch, branchFile);
             ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
-            System.out.println("git cloned");
             process.redirectErrorStream(true);
             process.redirectOutput(Redirect.appendTo(logFile));
             process.redirectError(Redirect.appendTo(logFile));
             process.start().waitFor();
             process.directory(new File(dir));
             process.command("git", "checkout", branch);
-            System.out.println("git checkouted");
             process.start().waitFor();
             process.command("bash",  "test.sh");
             exitCode = process.start().waitFor();
-            System.out.println("end git clone");
             
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
