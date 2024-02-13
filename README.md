@@ -15,9 +15,10 @@ Clone this repository and have Maven installed. This repository is also configur
 - To start the CI server, do the following in one terminal:
   
   1. Create a copy of `config.env-default` and rename it to `config.env`
-  2. Fill in the fields of `config.env`
-  3. Do `cd ci`
-  4. Run `mvn exec:java`
+  2. Add your [GitHub Token](https://github.com/settings/tokens) to `config.env` (When generating the token, make sure to select the "classic" variant and tick the `repo:status` box under "Select scopes")
+  3. Add the ngrok URL to `config.env`, such as `HISTORY_URL=http://XXXX-XX-XX-XX.ngrok-free.app`
+  4. Do `cd ci`
+  5. Run `mvn exec:java`
 
 - To make the local server externally visible using ngrok, do the following in a separate terminal:
   
@@ -31,14 +32,6 @@ Clone this repository and have Maven installed. This repository is also configur
   - Run ngrok (in a separate terminal):
     
     1. `ngrok http 8021`
-
-- To start the CI server, do the following in one terminal:
-  
-  1. Create a copy of `config.env-default` and rename it to `config.env`
-  2. Add your [GitHub Token](https://github.com/settings/tokens) to `config.env` (When generating the token, make sure to select the "classic" variant and tick the `repo:status` box under "Select scopes")
-  3. Add the ngrok URL to `config.env`, such as `HISTORY_URL=http://XXXX-XX-XX-XX.ngrok-free.app`
-  4. Do `cd ci`
-  5. Run `mvn exec:java`
 
 - To link the CI:
   
