@@ -1,6 +1,8 @@
 package com.group21.ci;
 
-
+/**
+ * A class for holding information about a GitHub repository.
+ */
 public class RepositoryInfo {
     String ref;
     String commitId;
