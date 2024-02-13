@@ -1,5 +1,6 @@
 package com.group21.ci;
 
+
 public class RepositoryInfo {
     String ref;
     String commitId;
@@ -7,6 +8,14 @@ public class RepositoryInfo {
     String owner;
     String name;
 
+    /**
+     * Constructs a RepositoryInfo object containing the specified repository information.
+     * @param ref the name of the current branch
+     * @param commitId the SHA of the latest commit
+     * @param cloneUrl the URL to clone the repository
+     * @param owner the owner of the repository
+     * @param name the name of the repository
+     */
     public RepositoryInfo(String ref, String commitId, String cloneUrl, String owner, String name){
         this.ref = ref;
         this.commitId = commitId;
