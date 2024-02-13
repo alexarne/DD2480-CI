@@ -28,6 +28,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     /**
      * Handler to handle incoming HTTP requests. The switch statement handles POST requests
      * from the GitHub push webhook and GET requests to display build history.
+     * POST handler
      */
     public void handle(String target,
                        Request baseRequest,
