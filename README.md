@@ -108,22 +108,26 @@ The implementation was tested both through unit testing, mock tests and user tes
 - RepositoryTester
 - Get and display build history
 - Refactoring and improvement of POST-handler
+- Documentation
 
 **Anne Haaker**
 
-- POST-handler and extract data
+- POST-handler and data extraction
 - RepositoryInformation class
 - Clean log files from ANSI color codes
+- Documentation
 
 **Hugo Tricot**
 
 - StatusSender sending commit status
 - Implement maven
+- Documentation
 
 **Juan Bautista Lavagnini Portela**
 
 - Local CI
 - Text sanitizer
+- Documentation
 
 Juan and Hugo worked in pair-programming most of the time.
 
