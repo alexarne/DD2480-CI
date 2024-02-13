@@ -41,16 +41,29 @@ public class TextSanitizerTest {
     }
 
     /*
-     * Normal-case test, if a string conteins some invalid characters, it is
+     * Normal-case test, if a string contains some invalid characters, it is
      * expected to receive a sanitized string
      */
 
-     @Test
-     public void testSanitizeNormalaCase() {
-         String input = "hello @ world";
-         String expected = "hello world";
-         assertEquals(expected, TextSanitizer.sanitize(input));
-     }
+    @Test
+    public void testSanitizeNormalCase() {
+        String input = "hello @ world";
+        String expected = "hello world";
+        assertEquals(expected, TextSanitizer.sanitize(input));
+    }
+
+    /**
+     * Invalid inout test for TextSanitizer. Should throw an exception if
+     * provided a null string to sanitise.
+     */
+    @Test
+    public void testNullString() {
+        String input = null;
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { TextSanitizer.sanitize(input); }
+        );
+    }
 
 
 

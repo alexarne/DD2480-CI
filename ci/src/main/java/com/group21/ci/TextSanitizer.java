@@ -5,7 +5,7 @@ package com.group21.ci;
  * This method sanitizes the text by removing not allowed characters
  * before sending it to the repository.
  * 
- * Allowed characters: a-z, A-Z, numbers
+ * Allowed characters: a-z, A-Z, numbers, - and _
  */
 
 public class TextSanitizer {
@@ -14,8 +14,9 @@ public class TextSanitizer {
             throw new IllegalArgumentException("Input cannot be null");
         }
 
-        String sanitizedText = text.replaceAll("[^a-zA-Z0-9\\s]", "");
-        //delete doble spaces
+        // May create double spaces because of character removal
+        String sanitizedText = text.replaceAll("[^a-zA-Z0-9-_\\s]", "");
+        // Deletes double spaces introduced above
         sanitizedText = sanitizedText.replaceAll("\\s+", " ");
         return sanitizedText;
     }

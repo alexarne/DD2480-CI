@@ -47,7 +47,6 @@ public class StatusSender {
 
 
     // Helper methods
-
     private void sendStatus(String state, String description) {
         try {
             response = statusHttpClient.sendAsync(requestBuilder(state, description),

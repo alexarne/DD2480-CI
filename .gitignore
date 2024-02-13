@@ -1,10 +1,11 @@
 # Custom rules for .gitignore
 ngrok
-*.env
+#*.env
 ci/repos/
 ci/history/
 ci/build_history/
 ci/target/*
+.vscode/
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,maven,visualstudiocode,eclipse,netbeans,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,visualstudiocode,eclipse,netbeans,intellij
