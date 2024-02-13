@@ -21,7 +21,6 @@ public class StatusSender {
         this.owner = repo.owner;
         this.repositoryName = repo.name;
         this.SHA = repo.commitId;
-        statusUrl = getStatusUrl();
         statusHttpClient = HttpClient.newHttpClient();
         this.buildIdentifier = id;
     }
