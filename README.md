@@ -92,26 +92,28 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 **Alex Gunnarsson**
 
-- 
-
+- RepositoryTester
+- Get and display build history
 - Reviewed:
 
 **Anne Haaker**
 
-- 
+- POST-handler and extract data
+- RepositoryInformation class
+- Clean log files from ANSI color codes
 - Reviewed:
-
-**Elliot Elmenbeck**
 
 
 **Hugo Tricot**
 
-- 
+- StatusSender sending commit status
+- Implement maven
 - Reviewed:
 
 **Juan Bautista Lavagnini Portela**
 
-- 
+- RepositoryTester to work for both windows and linux
+- Local CI
 - Reviewed:
 
 ## Way of working - Essence
