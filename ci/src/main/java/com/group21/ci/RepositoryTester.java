@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.regex.Pattern;
 
+/**
+ * Class for testing repositories.
+ */
 public class RepositoryTester {
     private String URL;
     private String SHA;
