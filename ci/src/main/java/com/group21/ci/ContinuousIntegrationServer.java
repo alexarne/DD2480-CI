@@ -107,6 +107,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 Scanner branchReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_BRANCH_FILENAME));
                 Scanner SHAReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_IDENTIFIER_FILENAME));
                 Scanner logReader = new Scanner(new File(Config.DIRECTORY_BUILD_HISTORY + buildId + "/" + Config.BUILD_LOG_FILENAME));
+                java.util.Date date = new java.util.Date(Long.parseLong(buildId));
+                htmlRespone += "<h2>Build Date: " + date.toString() + "</h2>";
                 htmlRespone += "<h2>Branch: " + (branchReader.hasNextLine() ? branchReader.nextLine() : "") + "</h2>";
                 htmlRespone += "<h2>SHA: " + (SHAReader.hasNextLine() ? SHAReader.nextLine() : "") + "</h2>";
                 htmlRespone += "<h2>Build log:</h2>";
@@ -117,7 +119,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 SHAReader.close();
                 logReader.close();
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                htmlRespone += "Build ID not found...";
             }
         } else {
             if (!target.equals("/favicon.ico")) 
