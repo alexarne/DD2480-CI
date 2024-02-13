@@ -115,6 +115,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 - RepositoryTester to work for both windows and linux
 - Local CI
+- Text sanitizer
 - Reviewed:
 
 ## Way of working - Essence
