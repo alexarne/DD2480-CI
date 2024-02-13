@@ -94,6 +94,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 - RepositoryTester
 - Get and display build history
+- Refactoring and improvement of POST-handler
 - Reviewed:
 
 **Anne Haaker**
@@ -108,7 +109,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 - StatusSender sending commit status
 - Implement maven
-- Reviewed:
+- Reviewed: 
 
 **Juan Bautista Lavagnini Portela**
 
