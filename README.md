@@ -21,7 +21,8 @@ Clone this repository and have Maven installed. This repository is also configur
 
   - Configure ngrok:
 
-    1. [Download and install ngrok from the ngrok website](https://ngrok.com/download)
+    1. Download a zip file suitable for your operating system from [the ngrok website](https://ngrok.com/download) 
+    2. `sudo tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin`
     3. [Register an account on ngrok to get your authentication token](https://dashboard.ngrok.com/get-started/your-authtoken)
     4. `ngrok config add-authtoken YOUR_TOKEN`
 
