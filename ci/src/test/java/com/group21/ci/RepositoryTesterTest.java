@@ -8,10 +8,10 @@ public class RepositoryTesterTest {
 
     /**
      * Negative test for compilation. The RepositoryTester's runTest method
-     * clones the project but cannot find the commit, whose id is wrong
+     * clones the project but cannot find the repo, as the url is wrong
      */
     @Test
-    public void testCompilationOnUnexistingCommit() {
+    public void testCompilationOnUnexistingRepo() {
         RepositoryInfo repo = new RepositoryInfo("main",
                                         "baeaaec85b5a3b480d842e1fa8a5253405f054b3",
                                         "https://github.com/alexarne/not-a-repo.git",
