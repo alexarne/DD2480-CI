@@ -141,6 +141,8 @@ The implementation was tested both through unit testing, mock tests and user tes
 - Local CI
 - Text sanitizer
 
+Juan and Hugo worked in pair-programming most of the time.
+
 ## Essence - Team
 
 We are somewhere between the "Collaborating" and "Performing" states. The group is actively working together and everyone mostly know what to do. Issues are self-assigned in an agile manner in order to make use of everyone's potential talents, such as some being more inclined towards frontend/backend work. The work process is not as smooth as it would have to be for us to be in the "Performing" state, with certain obstacles being uncovered due to improper planning and preparation for independent development. This leads to, for example, some backtracking where certain parts have to be reworked, which is what has to be fixed in order to get us to the next state. To further get to the "Adjourned" state, we would have to be completely finished with the project, which we almost are.
