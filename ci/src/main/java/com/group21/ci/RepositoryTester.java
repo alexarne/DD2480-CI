@@ -62,30 +62,16 @@ public class RepositoryTester {
             branchFile.createNewFile();
             appendToFile(SHA, SHAFile);
             appendToFile(branch, branchFile);
-            if (isWindows){
-                ProcessBuilder process = new ProcessBuilder("cmd", "/c", "git", "clone", URL, dir);
-                process.redirectErrorStream(true);
-                process.redirectOutput(Redirect.appendTo(logFile));
-                process.redirectError(Redirect.appendTo(logFile));
-                process.start().waitFor();
-                process.directory(new File(dir));
-                process.command("ls");
-                process.start().waitFor();
-                process.command("cmd", "/c", "test.bat");
-                exitCode = process.start().waitFor();
-            }
-            else{
-                ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
-                process.redirectErrorStream(true);
-                process.redirectOutput(Redirect.appendTo(logFile));
-                process.redirectError(Redirect.appendTo(logFile));
-                process.start().waitFor();
-                process.directory(new File(dir));
-                process.command("git", "checkout", branch);
-                process.start().waitFor();
-                process.command("bash",  "test.sh");
-                exitCode = process.start().waitFor();
-            }
+            ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
+            process.redirectErrorStream(true);
+            process.redirectOutput(Redirect.appendTo(logFile));
+            process.redirectError(Redirect.appendTo(logFile));
+            process.start().waitFor();
+            process.directory(new File(dir));
+            process.command("git", "checkout", branch);
+            process.start().waitFor();
+            process.command("bash",  "test.sh");
+            exitCode = process.start().waitFor();
             
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
