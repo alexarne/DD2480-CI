@@ -20,6 +20,7 @@ public class RepositoryTester {
     private String branch;
     private String owner;
     private String repositoryName;
+    private String id;
 
     public RepositoryTester(RepositoryInfo repo) {
         this.owner = repo.owner;
@@ -27,6 +28,15 @@ public class RepositoryTester {
         this.URL = repo.cloneUrl;
         this.SHA = repo.commitId;
         this.branch = repo.ref;
+        this.id = generateUniqueIdentifier();
+    }
+
+    /**
+     * Get the unique identifier for this specific build.
+     * @return The local unique identifier for the build.
+     */
+    public String getIdentifier() {
+        return this.id;
     }
     
     /**
@@ -34,16 +44,11 @@ public class RepositoryTester {
      * @return the exit code from the processes ran
      */
     public int runTests() {
-        String id = generateUniqueIdentifier();
         String dir = Config.DIRECTORY_REPOSITORIES + id;
         File logFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_LOG_FILENAME);
         File SHAFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_IDENTIFIER_FILENAME);
         File branchFile = new File(Config.DIRECTORY_BUILD_HISTORY + id + "/" + Config.BUILD_BRANCH_FILENAME);
         logFile.getParentFile().mkdirs();
-        
-        //Os detection
-        String osName = System.getProperty("os.name").toLowerCase();
-        boolean isWindows = osName.contains("windows");
 
         // Clone, checkout the branch that was pushed to and run test.sh
         int exitCode = -99;
@@ -51,30 +56,18 @@ public class RepositoryTester {
             logFile.createNewFile();
             SHAFile.createNewFile();
             branchFile.createNewFile();
-            if (isWindows){
-                ProcessBuilder process = new ProcessBuilder("cmd", "/c", "git", "clone", URL, dir);
-                process.redirectErrorStream(true);
-                process.redirectOutput(Redirect.appendTo(logFile));
-                process.redirectError(Redirect.appendTo(logFile));
-                process.start().waitFor();
-                process.directory(new File(dir));
-                process.command("ls");
-                process.start().waitFor();
-                process.command("cmd", "/c", "test.bat");
-                exitCode = process.start().waitFor();
-            }
-            else{
-                ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
-                process.redirectErrorStream(true);
-                process.redirectOutput(Redirect.appendTo(logFile));
-                process.redirectError(Redirect.appendTo(logFile));
-                process.start().waitFor();
-                process.directory(new File(dir));
-                process.command("git", "checkout", branch);
-                process.start().waitFor();
-                process.command("bash",  "test.sh");
-                exitCode = process.start().waitFor();
-            }
+            appendToFile(SHA, SHAFile);
+            appendToFile(branch, branchFile);
+            ProcessBuilder process = new ProcessBuilder("git", "clone", URL, dir);
+            process.redirectErrorStream(true);
+            process.redirectOutput(Redirect.appendTo(logFile));
+            process.redirectError(Redirect.appendTo(logFile));
+            process.start().waitFor();
+            process.directory(new File(dir));
+            process.command("git", "checkout", branch);
+            process.start().waitFor();
+            process.command("bash",  "test.sh");
+            exitCode = process.start().waitFor();
             
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
@@ -92,24 +85,15 @@ public class RepositoryTester {
         
         // Delete repo regardless
         try {
-            if (isWindows){
-                ProcessBuilder process = new ProcessBuilder("cmd", "/c", "rmdir", "/s", "/q", id);
-                process.directory(new File(Config.DIRECTORY_REPOSITORIES));
-                process.start().waitFor();
-            }
-            else{
-                ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
-                process.directory(new File(Config.DIRECTORY_REPOSITORIES));
-                process.start().waitFor();
-            }
+            ProcessBuilder process = new ProcessBuilder("rm", "-rf", id);
+            process.directory(new File(Config.DIRECTORY_REPOSITORIES));
+            process.start().waitFor();
             
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        appendToFile(SHA, SHAFile);
-        appendToFile(branch, branchFile);
         appendToFile(id + ": Exit code " + exitCode, logFile);
         System.out.println(id + ": Exit code " + exitCode);
         cleanFile(logFile);

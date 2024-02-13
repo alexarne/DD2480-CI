@@ -148,3 +148,4 @@ For P+, we have implemented the opportunity for the user to set their own descri
 - `FAILURE_DESCRIPTION`
 
 The custom status will go through sanitation so that dangerous characters (e.g. `\`, `"`, etc.) are not kept. For example, the message `error, shall not" be permitted` will be sanitized as `error shall not be permitted`. If no custom description has been set, the program will use a default one.
+
