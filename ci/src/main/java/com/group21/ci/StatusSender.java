@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.*;
 
+/**
+ * A class for sending commit statuses to GitHub.
+ */
 public class StatusSender {
     private String owner;
     private String repositoryName;
@@ -17,7 +20,7 @@ public class StatusSender {
     private static final String STATE_SUCCESS = "success";
     
     /**
-     * StatusSender constructor
+     * Construct a StatusSender with the specified repository and id.
      * @param repo    The RepositoryInfo representation of the repository
      * @param id      Local identifier for the repo/build
      */
@@ -30,11 +33,8 @@ public class StatusSender {
     }
 
     /**
-     *  sendErrorStatus
-     *      - send a POST request to the repo to set commit status to error,
-     *      with a short description.
-     *      - the error status indicates the CI crashed and the job
-     *      could not be finished.
+     * Send a POST request to the repo to set commit status to error,
+     * with a short description to indicate that the CI crashed.
      */
     public void sendErrorStatus() {
         System.out.println("Sent ERROR status");
@@ -43,11 +43,9 @@ public class StatusSender {
     }
 
     /**
-     *  sendFailureStatus
-     *      - send a POST request to the repo to set commit status to failure,
-     *      with a short description.
-     *      - the failure status indicates the CI did not crash but a problem occured
-     *      (such as a test failling).
+     * Send a POST request to the repo to set commit status to failure,
+     * with a short description to indicate that a problem occurred and
+     * the CI was unsuccessful. 
      */
     public void sendFailureStatus() {
         System.out.println("Sent FAILURE status");
@@ -56,11 +54,8 @@ public class StatusSender {
     }
 
     /**
-     *  sendPendingStatus
-     *      - send a POST request to the repo to set commit status to pending,
-     *      with a short description.
-     *      - the pending status indicates the CI is currently running and will update the
-     *      status when it finishes.
+     * Send a POST request to the repo to set commit status to pending,
+     * with a short description to indicate that the CI is currently running.
      */
     public void sendPendingStatus() {
         System.out.println("Sent PENDING status");
@@ -69,10 +64,8 @@ public class StatusSender {
     }
 
     /**
-     *  sendSuccessStatus
-     *      - send a POST request to the repo to set commit status to success,
-     *      with a short description.
-     *      - the success status indicates the CI finished its work and returned normally
+     * Send a POST request to the repo to set commit status to success,
+     * with a short description to indicate that the CI finished successfully.
      */
     public void sendSuccessStatus() {
         System.out.println("Sent SUCCESS status");
@@ -82,8 +75,8 @@ public class StatusSender {
 
 
     // Helper methods
+
     /**
-     * sendStatus
      * A helper method that sends a request to set the commit status defined in the constructor.
      * @param state the state of the commit status (see STATE_ERROR, etc.)
      * @param description a short description for the status to be set
@@ -102,8 +95,7 @@ public class StatusSender {
     }
 
     /**
-     * getStatusUrl
-     *      - a helper method that creates the URL of the API to update the commit status 
+     * A helper method that creates the URL of the API to update the commit status 
      * @return the URL of the API
      */
     private String getStatusUrl() {
@@ -111,12 +103,11 @@ public class StatusSender {
     }
 
     /**
-     * requestBuilder
-     *      - creates, builds and returns a POST request to set the status 
-     * @param status    the status to set for the commit, must be "success",
-     *                  "pending", "error" or "failure"
-     * @param description   a short description associated with the commit status
-     * @return the built request
+     * Creates, builds and returns a POST request to set the status 
+     * @param status the status for the commit. Must be one of "success",
+     * "pending", "error" or "failure".
+     * @param description a short description associated with the commit status
+     * @return the HTTP request to be sent.
      */
     public HttpRequest requestBuilder(String status, String description) {
         HttpRequest request = HttpRequest.newBuilder()
