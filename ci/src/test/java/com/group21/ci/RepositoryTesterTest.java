@@ -24,5 +24,4 @@ public class RepositoryTesterTest {
 
     // Note: a similar positive test was made but it ended up looping by checking itself. It was removed
     // in favor of CompulingTest.testCreatedFilesFound()
-
 }
