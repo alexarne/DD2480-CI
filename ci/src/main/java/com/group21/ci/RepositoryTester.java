@@ -22,6 +22,10 @@ public class RepositoryTester {
     private String repositoryName;
     private String id;
 
+    /**
+     * Constructs a RepositoryTester of the specified repository. 
+     * @param repo the repository to be tested
+     */
     public RepositoryTester(RepositoryInfo repo) {
         this.owner = repo.owner;
         this.repositoryName = repo.name;
