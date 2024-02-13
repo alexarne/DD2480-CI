@@ -87,6 +87,12 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 - Maven: Apache Maven 3.9.1 (Red Hat 3.9.1-3)
 
+## Implementation and unit-testing
+
+The webhooks is triggered by a push event, which sends a POST request to the CI server with data about the latest push. Relevant data, for example the URL to clone the repository, the branch which the push was made to and the latest commit SHA, is extracted. The repository is then cloned from the extracted URL and the correct branch is checked out. A bash script, test.sh, is executed, in which the maven command 'mvn test' is run. Mvn test compiles the files and runs the tests. The exit status from these commands decide what commit status should be sent back as notification. 
+
+The implementation was tested both through unit testing, mock tests and user testing. For example, a mock-payload from the github webhook was used to test the extraction of data from the payload. Testing was also done through observation of the results. A commit was pushed to the repo, and the logs of the build history were looked at to determine if the repository was properly cloned and the tests run. The mvn test command outputs the build status (for example 'success') and shows the tests that were ran and if they passed or not. Similar tests were conducted to make sure the notification through commit statuses was correct, with both correct builds and builds with errors, that should not stop execution but return a 'failure' commit status.
+
 ## Statement of Contributions
 
 **Alex Gunnarsson**
