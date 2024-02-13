@@ -76,10 +76,14 @@ The repository has the following structure:
       - RepositoryTester.java
 
       - StatusSender.java
+      
+      - TextSanitizer.java
 
     - test\java\com\group21\ci
 
       - ContinuousIntegrationServerTest.java
+
+      - TextSanitizerTest.java
 
   - A `target` folder will appear here after building the project, containing the executables and jar files.
 
@@ -132,7 +136,6 @@ The implementation was tested both through unit testing, mock tests and user tes
 
 **Juan Bautista Lavagnini Portela**
 
-- RepositoryTester to work for both windows and linux
 - Local CI
 - Text sanitizer
 
