@@ -1,6 +1,8 @@
 # DD2480-CI
 
-Continuous Integration implementation, part of DD2480 Software Engineering Fundamentals (KTH, 2024)
+Continuous Integration implementation, part of DD2480 Software Engineering Fundamentals (KTH, 2024).
+
+A browsable list of all previous builds can be found here (the root of the current ngrok link): https://XXXX.ngrok-free.app
 
 ## Configuration
 
