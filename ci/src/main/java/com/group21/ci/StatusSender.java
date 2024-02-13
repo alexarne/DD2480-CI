@@ -1,5 +1,6 @@
 package com.group21.ci;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.*;
 import java.util.concurrent.CompletableFuture;
@@ -9,19 +10,20 @@ public class StatusSender {
     private String repositoryName;
     private String SHA;
     private HttpClient statusHttpClient;
-    CompletableFuture<HttpResponse<String>> response;
+    private String buildIdentifier;
     
     /**
      * StatusSender constructor
-     * @param owner             the owner of the repository
-     * @param repositoryName    name of the repository 
-     * @param SHA               SHA of the commit to change status of
+     * @param repo    The RepositoryInfo representation of the repository
+     * @param id      Local identifier for the repo/build
      */
-    public StatusSender(String owner, String repositoryName, String SHA) {
-        this.owner = owner;
-        this.repositoryName = repositoryName;
-        this.SHA = SHA;
+    public StatusSender(RepositoryInfo repo, String id) {
+        this.owner = repo.owner;
+        this.repositoryName = repo.name;
+        this.SHA = repo.commitId;
+        statusUrl = getStatusUrl();
         statusHttpClient = HttpClient.newHttpClient();
+        this.buildIdentifier = id;
     }
 
     /**
@@ -32,9 +34,16 @@ public class StatusSender {
      *      could not be finished.
      */
     public void sendErrorStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("error", 
-                                                "An error occured during the build"),
-                                                HttpResponse.BodyHandlers.ofString());
+        System.out.println("Sent ERROR status");
+        try {
+            HttpResponse<String> response = statusHttpClient.send(
+                requestBuilder("error", "An error occured during the build"),
+                HttpResponse.BodyHandlers.ofString()
+            );
+            System.out.println("Received code: " + response.statusCode());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -45,9 +54,16 @@ public class StatusSender {
      *      (such as a test failling).
      */
     public void sendFailureStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("failure", 
-                                                "Build has failed"),
-                                                HttpResponse.BodyHandlers.ofString());
+        System.out.println("Sent FAILURE status");
+        try {
+            HttpResponse<String> response = statusHttpClient.send(
+                requestBuilder("failure", "Build has failed"),
+                HttpResponse.BodyHandlers.ofString()
+            );
+            System.out.println("Received code: " + response.statusCode());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -58,9 +74,16 @@ public class StatusSender {
      *      status when it finishes.
      */
     public void sendPendingStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("pending", 
-                                                "Build has begun on the CI server"),
-                                                HttpResponse.BodyHandlers.ofString());
+        System.out.println("Sent PENDING status");
+        try {
+            HttpResponse<String> response = statusHttpClient.send(
+                requestBuilder("pending", "Build has begun on the CI server"),
+                HttpResponse.BodyHandlers.ofString()
+            );
+            System.out.println("Received code: " + response.statusCode());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -70,8 +93,16 @@ public class StatusSender {
      *      - the success status indicates the CI finished its work and returned normally
      */
     public void sendSuccessStatus() {
-        response = statusHttpClient.sendAsync(requestBuilder("success", "Build success"), 
-                                                HttpResponse.BodyHandlers.ofString());
+        System.out.println("Sent SUCCESS status");
+        try {
+            HttpResponse<String> response = statusHttpClient.send(
+                requestBuilder("success", "Build success"), 
+                HttpResponse.BodyHandlers.ofString()
+            );
+            System.out.println("Received code: " + response.statusCode());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -105,6 +136,7 @@ public class StatusSender {
             .POST(HttpRequest.BodyPublishers.ofString("{\"state\":\"" + status + "\"" 
                 + "," + "\"description\":" + "\"" + description + "\""
                 + "," + "\"context\":\"project-continuous-integration-server\""
+                + "," + "\"target_url\":\"" + Config.HISTORY_URL + "/" + buildIdentifier + "\""
                 + "}"))
             .build();
             return request;
