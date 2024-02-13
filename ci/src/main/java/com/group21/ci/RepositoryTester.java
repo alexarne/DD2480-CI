@@ -11,7 +11,7 @@ import java.io.PrintStream;
 import java.lang.ProcessBuilder.Redirect;
 
 /**
- * Class for testing repositories.
+ * Class for testing repositories
  */
 public class RepositoryTester {
     private String URL;
