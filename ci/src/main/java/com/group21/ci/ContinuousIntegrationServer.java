@@ -171,7 +171,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     /**
      * Start the CI server
      * @param args command line arguments
-     * @throws Exception
+     * @throws Exception if the server fails to start
      */
     public static void main(String[] args) throws Exception
     {
