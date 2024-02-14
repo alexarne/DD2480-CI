@@ -4,6 +4,9 @@ Continuous Integration implementation, part of DD2480 Software Engineering Funda
 
 A browsable list of all previous builds can be found here (the root of the current ngrok link): https://XXXX.ngrok-free.app
 
+## Documentation
+Javadocs can be generated with `mvn javadoc:javadoc`. They will appear in the folder `target/site`. Open the `index.html` file in the browser to view the generated javadocs.
+
 ## Configuration
 
 Any repository which implements this CI has to provide a `test.sh` script in the root directory, which is then executed in order to test the repository.
