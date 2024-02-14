@@ -170,6 +170,7 @@ public class StatusSender {
     }
 
     /**
+     * Get description for success commit status.
      * @return the description that will be set for a success commit status
      */
     public String getSuccessDescription() {
@@ -177,6 +178,7 @@ public class StatusSender {
     }
 
     /**
+     * Get description for pending commit status.
      * @return the description that will be set for a pending commit status
      */
     public String getPendingDescription() {
@@ -184,6 +186,7 @@ public class StatusSender {
     }
 
     /**
+     * Get description for error commit status.
      * @return the description that will be set for an errpr commit status
      */
     public String getErrorDescription() {
@@ -191,6 +194,7 @@ public class StatusSender {
     }
 
     /**
+     * Get description for failure commit status.
      * @return the description that will be set for a success commit status
      */
     public String getFailureDescription() {
