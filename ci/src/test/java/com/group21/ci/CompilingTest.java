@@ -14,40 +14,15 @@ public class CompilingTest {
     
     @Test
     public void testCreatedFilesFound() throws IOException {
-        String file = "target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst";
-        Scanner scanner = new Scanner(new File(file));
-        scanner.useDelimiter("\n");
-
-        assertTrue(scanner.hasNext());
-        assertEquals("com/group21/ci/ContinuousIntegrationServer$1.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/ContinuousIntegrationServer.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/RepositoryTester.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/ContinuousIntegrationServer$2.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/Config.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/TextSanitizer.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/RepositoryInfo.class", 
-                    scanner.next());
-        assertEquals("com/group21/ci/StatusSender.class", 
-                    scanner.next());
-
-        scanner.close();
+        String pathToClasses = "target/classes/com/group21/ci/";
+        
+        assertTrue(new File(pathToClasses + "Config.class").exists());
+        assertTrue(new File(pathToClasses + "ContinuousIntegrationServer.class").exists());
+        assertTrue(new File(pathToClasses + "RepositoryInfo.class").exists());
+        assertTrue(new File(pathToClasses + "RepositoryTester.class").exists());
+        assertTrue(new File(pathToClasses + "StatusSender.class").exists());
+        assertTrue(new File(pathToClasses + "TextSanitizer.class").exists());
+    
     }
-
-    /*
-     * com/group21/ci/ContinuousIntegrationServer$1.class
-com/group21/ci/ContinuousIntegrationServer.class
-com/group21/ci/RepositoryTester.class
-com/group21/ci/ContinuousIntegrationServer$2.class
-com/group21/ci/Config.class
-com/group21/ci/TextSanitizer.class
-com/group21/ci/RepositoryInfo.class
-com/group21/ci/StatusSender.class
-     */
 
 }
