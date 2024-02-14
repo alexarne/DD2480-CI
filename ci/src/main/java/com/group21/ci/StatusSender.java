@@ -187,7 +187,7 @@ public class StatusSender {
 
     /**
      * Get description for error commit status.
-     * @return the description that will be set for an errpr commit status
+     * @return the description that will be set for an error commit status
      */
     public String getErrorDescription() {
         return this.errorDescription;
