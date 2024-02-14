@@ -6,6 +6,10 @@ package com.group21.ci;
 public class TextSanitizer {
 
     /**
+     * Constructs a TextSanitizer object.
+     */
+    public TextSanitizer(){};
+    /**
      * Sanitizes  text by removing illegal characters
      * Allowed characters: a-z, A-Z, numbers, - and _
      * @param text a string to be sanitized 
