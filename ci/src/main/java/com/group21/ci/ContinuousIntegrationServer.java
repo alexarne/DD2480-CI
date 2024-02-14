@@ -29,9 +29,16 @@ public class ContinuousIntegrationServer extends AbstractHandler
      * Constructs a ContinuousIntegrationServer object.
      */
     public ContinuousIntegrationServer(){}
+
     /**
      * Handler to handle incoming HTTP requests. The switch statement handles POST requests
      * from the GitHub push webhook and GET requests to display build history.
+     * @param target The target of the request - either a URI or a name.
+     * @param baseRequest The original unwrapped request object.
+     * @param request The request either as the Request object or a wrapper of that request.
+     * @param response The response as the Response object or a wrapper of that request.
+     * @throws IOException if unable to handle the request or response processing
+     * @throws ServletException if unable to handle the request or response due to underlying servlet issue
      */
     public void handle(String target,
                        Request baseRequest,
