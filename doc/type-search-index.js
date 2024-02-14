@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.group21.ci","l":"Config"},{"p":"com.group21.ci","l":"ContinuousIntegrationServer"},{"p":"com.group21.ci","l":"RepositoryInfo"},{"p":"com.group21.ci","l":"RepositoryTester"},{"p":"com.group21.ci","l":"StatusSender"},{"p":"com.group21.ci","l":"TextSanitizer"}]
