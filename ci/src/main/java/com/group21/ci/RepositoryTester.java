@@ -43,8 +43,8 @@ public class RepositoryTester {
     }
     
     /**
-     * Clone and test the repository and save data from the processes ran in log files.
-     * @return the exit code from the processes ran
+     * Clone and test the repository and save output from the processes in log files.
+     * @return the exit code from the last process that was run.
      */
     public int runTests() {
         String dir = Config.DIRECTORY_REPOSITORIES + id;
