@@ -26,6 +26,10 @@ import org.json.JSONObject;
 public class ContinuousIntegrationServer extends AbstractHandler
 {
     /**
+     * Constructs a ContinuousIntegrationServer object.
+     */
+    public ContinuousIntegrationServer()
+    /**
      * Handler to handle incoming HTTP requests. The switch statement handles POST requests
      * from the GitHub push webhook and GET requests to display build history.
      * POST handler
@@ -164,7 +168,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
     }
  
-    // used to start the CI server from command line
+    /**
+     * Start the CI server
+     * @param args command line arguments
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception
     {
         Server server = new Server(Config.PORT);
