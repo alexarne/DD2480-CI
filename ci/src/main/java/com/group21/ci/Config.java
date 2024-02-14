@@ -3,9 +3,14 @@ package com.group21.ci;
 import io.github.cdimascio.dotenv.Dotenv;
 
 /**
- * A class holding configurations for the server.
+ * A class holding configuration constants for the server.
  */
 public class Config {
+    /**
+     * Constructs a Config object.
+     */
+    public Config(){}
+
     /**
      * A token to verify setting of commit statuses.
      */
